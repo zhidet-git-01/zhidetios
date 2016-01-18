@@ -1,0 +1,74 @@
+//
+//  zhidet.pch
+//  zhidetDemo
+//
+//  Created by 唐海洋 on 15/12/13.
+//  Copyright © 2015年 刘璐璐. All rights reserved.
+//
+
+#ifndef zhidet_pch
+#define zhidet_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* zhidet_pch */
+
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+
+#define userDefault [NSUserDefaults standardUserDefaults]  //数据本地化
+#define NotiCenter [NSNotificationCenter defaultCenter]
+
+#define AwayColor [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]   //常用背景颜色 浅灰
+#define BackColor [UIColor colorWithRed:77/255.0 green:184/255.0 blue:94/255.0 alpha:1] //主题颜色 （绿色）
+#define BidColor [UIColor colorWithRed:255/255.0 green:171/255.0 blue:0 alpha:1] //橙色
+#define LableColor [UIColor colorWithRed:0.9 green:0.98 blue:0.9 alpha:1]  //浅绿（查看步骤）
+#define TableViewBackColor [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1] //表格背景常用颜色
+#define wordColor [UIColor colorWithRed:119/255.0 green:119/255.0 blue:119/255.0 alpha:1]  // 文字常用颜色
+
+#define wordSize 15  //一般文字大小
+
+#define payTextTag 20    //提现支付宝输入tag值
+#define bankTextTag 30    //提现银行卡输入tag值
+
+#define PhotoURL @"http://service.zhidet.com/index/ad-api" //图片网址
+
+#define HomeURL @"http://service.zhidet.com/company/company-list-api"  //平台网址
+
+#define LoginURL @"http://service.zhidet.com/login//user-login"  //登录网址
+
+#define ProfitURL @"http://service.zhidet.com/user/returnmoney-api" //个人返利账号
+
+#define CashWayURL @"http://service.zhidet.com/user/fetchmoney-api" //提现方式
+
+#define MessageURL @"http://service.zhidet.com/suggest/suggest-commit"   //提交建议
+
+#define SubmitJudge @"http://service.zhidet.com/company/get-company-user-rel"    //投标账号判断
+#define SubmitURL @"http://service.zhidet.com/company/company-user-rel" //投标账号提交
+
+#define RegistURL @"http://service.zhidet.com/register/user-register"    //注册
+
+#define sendURL @"http://service.zhidet.com/register/get-check-code"   //发送短信
+
+#define updataPwdURL @"http://service.zhidet.com/safe/reset-password" //修改密码
+
+#define foundPwdURL @"http://service.zhidet.com/passwd/modify-passwd" //找回密码
+
+#define inviteURL @"http://service.zhidet.com/invite/list-invite-api?token=%@" //邀请好友纪录
+
+#define addBankURL @"http://service.zhidet.com/user/bindBankCode-api"  //绑定银行卡
+
+#define addPayURL @"http://service.zhidet.com/user/bindAlipayAccount-api"  //绑定支付宝
+
+#define SureCashURL @"http://service.zhidet.com/user/withdraw-comfirm"  //确认提现
+
+#define CashRecordURL @"http://service.zhidet.com/user/withdraw-list" //提现记录
+
+#define EmailJudgeURL @"http://service.zhidet.com/user/fetch-mail" //判断邮箱
+
+#define EmailURL @"http://service.zhidet.com/user/bind-mail"  //邮箱绑定
+
+
+
+

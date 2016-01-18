@@ -7,8 +7,17 @@
 //
 
 #import "AppDelegate.h"
+#import "LeadViewController.h"
+#import "AFNetworking.h"
+#import "BasicTabBarController.h"
+#import <netinet/in.h>
+#import <UMSocial.h>
+#import <UMSocialQQHandler.h>
+#import <UMSocialWechatHandler.h>
 
-@interface AppDelegate ()
+
+
+@interface AppDelegate ()<UIAlertViewDelegate>
 
 @end
 
@@ -16,8 +25,88 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+    
+    // 判断是否第一次打开
+//    
+//    BOOL mark = [userDefault boolForKey:@"isFirst"];
+//    
+//    if (mark == NO) {
+//        
+//        self.window.rootViewController = [[LeadViewController alloc] init];
+//        [userDefault setBool:YES forKey:@"isFirst"];
+//        
+//    } else
+//    {
+//        BasicTabBarController *tabBarVc = [[BasicTabBarController alloc] init];
+//        self.window.rootViewController = tabBarVc;
+//
+//    }
+    
+    
+    [UMSocialData setAppKey:@"568b9a68e0f55a45bb0009d2"];
+    
+    [UMSocialQQHandler setQQWithAppId:@"1105016327" appKey:@"m1q4AOB8wLJka3VT" url:@"http://www.zhidet.com"];
+    
+    [UMSocialWechatHandler setWXAppId:@"wx739a1a87ec718c4a" appSecret:@"e62b5ba88748e64bdf0b9c14e7d8c253" url:@"http://www.zhidet.com"];
+    
+    
+    BasicTabBarController *tabBarVc = [[BasicTabBarController alloc] init];
+    self.window.rootViewController = tabBarVc;
+    //判断是否连接网络
+    [self monitorNetStatus];
+    
+    [self.window makeKeyAndVisible];
     return YES;
+}
+
+
+#pragma mark ------网络状态
+- (void) monitorNetStatus{
+    
+    if (![self connectedToNetwork]) {
+        
+        UIAlertView *alterView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网络未连接" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去设置", nil];
+        [alterView show];
+    }
+}
+#pragma mark - 判断是否有网络
+-(BOOL) connectedToNetwork
+{
+    // Create zero addy
+    struct sockaddr_in zeroAddress;
+    bzero(&zeroAddress, sizeof(zeroAddress));
+    zeroAddress.sin_len = sizeof(zeroAddress);
+    zeroAddress.sin_family = AF_INET;
+    
+    // Recover reachability flags
+    SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+    SCNetworkReachabilityFlags flags;
+    
+    BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+    CFRelease(defaultRouteReachability);
+    
+    if (!didRetrieveFlags)
+    {
+        return NO;
+    }
+    
+    BOOL isReachable = ((flags & kSCNetworkFlagsReachable) != 0);
+    BOOL needsConnection = ((flags & kSCNetworkFlagsConnectionRequired) != 0);
+    return (isReachable && !needsConnection) ? YES : NO;
+}
+
+//去设置事件（代理方法）
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 1) {
+        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
